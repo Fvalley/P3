@@ -72,11 +72,11 @@ public class Nodo {
 	}
 	
 	
-	private Nodo getHijoDer() {
+	public Nodo getHijoDer() {
 		// TODO Auto-generated method stub
 		return this.hijoDer;
 	}
-	private Nodo getHijoIzq() {
+	public Nodo getHijoIzq() {
 		// TODO Auto-generated method stub
 		return this.hijoIzq;
 	}
@@ -115,5 +115,21 @@ public class Nodo {
 			else
 				this.hijoDer.setNodo(k,gen);
 		}
+	}
+	public Nodo getPadre() {
+		// TODO Auto-generated method stub
+		return this.padre;
+	}
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return this.indice;
+	}
+	public void setHijoIzq(Nodo hijo) {
+		// TODO Auto-generated method stub
+		this.hijoIzq = hijo;
+	}
+	public void setHijoDer(Nodo hijo) {
+		// TODO Auto-generated method stub
+		this.hijoDer = hijo;
 	}
 }

@@ -7,14 +7,14 @@ public abstract class Mutation {
 	public abstract void execute(Chromosome chromosome, int k);
 	public static void createInstance(String mutate) {
 		switch (mutate) {
-		case "EXCHANGE":
-			muta= new Exchange();
+		case "FUNCION SIMPLE":
+			muta= new FuncionSimple();
 			break;
-		case "INSERTION":
-			muta = new Insertion();
+		case "ARBOL":
+			muta = new Arbol();
 			break;
-		case "INVERSION":
-			muta = new Inversion();
+		case "PERMUTACION":
+			muta = new Permutacion();
 			break;
 		case "HEURISTIC":
 			muta = new Heuristic();
