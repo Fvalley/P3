@@ -1,13 +1,13 @@
 package inicializacion;
 
+import model.Chromosome;
 import model.Elemento;
-import model.Nodo;
 
 
 public abstract class Iniciacion {
 	protected static Elemento[] funciones = Elemento.values();
 	private static Iniciacion inic = null;
-	public abstract Nodo execute(int treeLength);
+	public abstract Chromosome[] execute(int treeLength, int pobSize);
 	public static void createInstance(String ini) {
 		switch (ini) {
 		case "FULL":

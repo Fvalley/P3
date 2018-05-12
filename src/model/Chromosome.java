@@ -12,8 +12,8 @@ public class Chromosome {
 	private double punt_acum = 0;//puntuacion acumulada para seleccion
 	
 	//Random creation
-	public Chromosome(int treeLength){
-		this.tree = Iniciacion.getInstance().execute(treeLength);
+	public Chromosome(int treeLength, Nodo nodo){
+		this.tree =nodo;
 		this.treeLength = treeLength;
 	}
 	
@@ -27,7 +27,7 @@ public class Chromosome {
 	}
 
 	//Decodes genotype to fenotype
-	private String decodificador(String text){
+	private String decodificador(){
 		//Convert text to uppercase, separate it on chars, convert actual text to new text with genes array
 		xxx
 	}
@@ -36,7 +36,7 @@ public class Chromosome {
 	 * Calculate the fitness
 	 * @param text Example text to control the value of this chromosome
 	 */
-	public void calculos(String text){
+	public void calculos(){
 		xxx
 	}
 

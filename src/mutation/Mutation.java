@@ -16,14 +16,6 @@ public abstract class Mutation {
 		case "PERMUTACION":
 			muta = new Permutacion();
 			break;
-		case "HEURISTIC":
-			muta = new Heuristic();
-			break;
-		case "OUR METHOD":
-			muta = new MethodMutate();
-			break;
-		case "INDEX":
-			muta = new IndexMutation();
 		default:
 			break;
 		}

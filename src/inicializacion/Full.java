@@ -1,5 +1,6 @@
 package inicializacion;
 
+import model.Chromosome;
 import model.Elemento;
 import model.Nodo;
 
@@ -23,8 +24,7 @@ public class Full extends Iniciacion {
 		return aux;
 	}
 
-	@Override
-	public Nodo execute(int treeLength) {
+	public Nodo execut(int treeLength) {
 		// TODO Auto-generated method stub
 		Nodo padre= new Nodo();
 		do {
@@ -37,4 +37,14 @@ public class Full extends Iniciacion {
 		return padre;
 	}
 
+	@Override
+	public Chromosome[] execute(int treeLength, int pobSize) {
+		// TODO Auto-generated method stub
+		Chromosome[] aux = new Chromosome[pobSize];
+		for(int i = 0; i < pobSize; i++)
+			aux[i] = new Chromosome(treeLength, execut(treeLength));
+		return aux;
+	}
+
+	
 }

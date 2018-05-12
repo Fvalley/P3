@@ -1,5 +1,6 @@
 package model;
 
+import inicializacion.Iniciacion;
 import mutation.Mutation;
 
 public class Population {
@@ -10,10 +11,7 @@ public class Population {
 	private static String cleantext;
 	public Population(int tam, int length){
 		this.pobSize = tam;
-		this.individuals = new Chromosome[this.pobSize];
-		for(int i = 0; i < this.pobSize; i++){
-			individuals[i]= new Chromosome(length);
-		}
+		this.individuals= Iniciacion.getInstance().execute(length,this.pobSize);
 		
 	}
 	public Population() {
@@ -61,7 +59,7 @@ public class Population {
 		double[] aux = new double[this.pobSize];
 		
 		for(int i = 0; i < this.pobSize; i++){
-			this.individuals[i].calculos(cleantext);
+			this.individuals[i].calculos();
 		}
 		for (int i = 0;i < this.pobSize;i++)
 			aux[i] = individuals[i].getFitness();
