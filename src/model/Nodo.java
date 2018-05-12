@@ -8,6 +8,7 @@ public class Nodo {
 	protected static Elemento[] funciones = Elemento.values();
 	private int profundidad;
 	private int indice = -1;
+	private int numNodos;
 	
 	public Nodo(int length, Nodo padre, int i){
 		this.padre = padre;
@@ -24,7 +25,7 @@ public class Nodo {
 		}
 		else
 			this.funcion = Elemento.A;
-		
+		padre.numNodos = i;
 	}
 	public Nodo() {
 		this.profundidad = 0;
@@ -35,6 +36,7 @@ public class Nodo {
 	public Nodo(Nodo tree, Nodo padre) {
 		// TODO Auto-generated constructor stub
 		this.funcion = tree.getFuncion();
+		this.numNodos = tree.numNodos;
 		if(padre != null)
 			this.padre = padre;
 		this.profundidad = tree.profundidad;
@@ -144,5 +146,37 @@ public class Nodo {
 	public void setProfundidad(int i) {
 		// TODO Auto-generated method stub
 		this.profundidad=i;
+	}
+	public double getNumNodos() {
+		// TODO Auto-generated method stub
+		return this.numNodos;
+	}
+	public String getText() {
+		// TODO Auto-generated method stub
+		String aux = "";
+		switch(this.funcion) {
+		case Suma:
+			aux = "+ ("+ this.hijoIzq.getText() + ") (" + this.hijoDer.getText() + ")";
+			break;
+		case Resta:
+			aux = "- ("+ this.hijoIzq.getText() + ") (" + this.hijoDer.getText() + ")";
+			break;
+		case Multiplicacion:
+			aux = "* ("+ this.hijoIzq.getText() + ") (" + this.hijoDer.getText() + ")";
+			break;
+		case Division:
+			aux = "/ ("+ this.hijoIzq.getText() + ") (" + this.hijoDer.getText() + ")";
+			break;
+		case LOG:
+			aux = "LOG ("+ this.hijoIzq.getText() + ")";
+			break;
+		case SQRT:
+			aux = "SQRT ("+ this.hijoIzq.getText() + ")";
+			break;
+		case A:
+			aux = "A";
+			break;
+		}
+		return aux;
 	}
 }

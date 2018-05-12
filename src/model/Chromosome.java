@@ -29,7 +29,7 @@ public class Chromosome {
 	//Decodes genotype to fenotype
 	private String decodificador(){
 		//Convert text to uppercase, separate it on chars, convert actual text to new text with genes array
-		xxx
+		return this.tree.getText();
 	}
 
 	/**
@@ -76,5 +76,10 @@ public class Chromosome {
 	}
 	public Nodo getGenes() {
 		return this.tree;
+	}
+
+	public double getNumNodos() {
+		// TODO Auto-generated method stub
+		return this.tree.getNumNodos();
 	}
 }
