@@ -2,6 +2,8 @@ package model;
 
 import java.util.TreeMap;
 
+import inicializacion.Iniciacion;
+
 public class Chromosome {
 	private Nodo tree;//cadena de bits (genotipo)
 	private int treeLength = 0;//profundidad maxima del arbol
@@ -11,14 +13,14 @@ public class Chromosome {
 	
 	//Random creation
 	public Chromosome(int treeLength){
-		this.tree = new Nodo(treeLength);
+		this.tree = Iniciacion.getInstance().execute(treeLength);
 		this.treeLength = treeLength;
 	}
 	
 	//Constructor of a copy cromosoma
 	public Chromosome(Chromosome chromosome) {
 		// TODO Auto-generated constructor stub
-		this.tree = new Nodo(chromosome.tree);
+		this.tree = new Nodo(chromosome.tree, null);
 		this.fitness= chromosome.fitness;
 		this.punt_acum = chromosome.punt_acum;
 		this.puntuation = chromosome.puntuation;

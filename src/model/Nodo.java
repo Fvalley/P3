@@ -5,7 +5,7 @@ public class Nodo {
 	private Nodo hijoDer = null;
 	private Nodo padre = null;
 	private Elemento funcion = null;
-	private static Elemento[] funciones = Elemento.values();
+	protected static Elemento[] funciones = Elemento.values();
 	private int profundidad;
 	private int indice = -1;
 	
@@ -26,23 +26,20 @@ public class Nodo {
 			this.funcion = Elemento.A;
 		
 	}
-	public Nodo(int treeLength) {
+	public Nodo() {
 		this.profundidad = 0;
-		int i = 0;
+		int i = 1;
 		this.indice = i;
 		this.funcion = funciones[(int) Math.round(Math.random()*6)];
-		if(!this.esTerminal()){
-			if(this.esBiFuncion())
-				this.añadirHijo(new Nodo(treeLength-1, this, i));
-			this.añadirHijo(new Nodo(treeLength-1, this, i));
-		}
 	}
-	public Nodo(Nodo tree) {
+	public Nodo(Nodo tree, Nodo padre) {
 		// TODO Auto-generated constructor stub
 		this.funcion = tree.getFuncion();
+		if(padre != null)
+			this.padre = padre;
 		this.profundidad = tree.profundidad;
-		this.hijoIzq = new Nodo(tree.getHijoIzq());
-		this.hijoDer = new Nodo(tree.getHijoDer());
+		this.hijoIzq = new Nodo(tree.getHijoIzq(),this);
+		this.hijoDer = new Nodo(tree.getHijoDer(), this);
 		
 	}
 	
@@ -105,8 +102,8 @@ public class Nodo {
 		if(this.indice == k){
 			this.funcion = gen.getFuncion();
 			this.profundidad = gen.profundidad;
-			this.hijoIzq = new Nodo(gen.getHijoIzq());
-			this.hijoDer = new Nodo(gen.getHijoDer());
+			this.hijoIzq = new Nodo(gen.getHijoIzq(),this);
+			this.hijoDer = new Nodo(gen.getHijoDer(),this);
 		}
 		else
 		{
@@ -131,5 +128,21 @@ public class Nodo {
 	public void setHijoDer(Nodo hijo) {
 		// TODO Auto-generated method stub
 		this.hijoDer = hijo;
+	}
+	public void setFuncion(Elemento elemento) {
+		// TODO Auto-generated method stub
+		this.funcion= elemento;
+	}
+	public void setPadre(Nodo padre2) {
+		// TODO Auto-generated method stub
+		this.padre= padre2;
+	}
+	public void setIndice(int i) {
+		// TODO Auto-generated method stub
+		this.indice=i;
+	}
+	public void setProfundidad(int i) {
+		// TODO Auto-generated method stub
+		this.profundidad=i;
 	}
 }
