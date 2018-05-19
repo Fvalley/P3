@@ -23,12 +23,12 @@ public class Barras {
 	@SuppressWarnings("unused")
 	private Controller ctrl;
 	private JTextField[] finalgen;
-	public Barras(Controller ctrl, JTextArea cyphertext) {
+	public Barras(Controller ctrl) {
 		this.ctrl = ctrl;
 		this.panel = new JToolBar();
 		this.toolBar = new JToolBar();
 		Dimension dimension = new Dimension(150, 25);
-		JTextField poblacion = new JTextField("150");
+		JTextField poblacion = new JTextField("10");
 		poblacion.setMaximumSize(dimension);
 		JTextField generaciones = new JTextField("300");
 		generaciones.setMaximumSize(dimension);
@@ -50,15 +50,15 @@ public class Barras {
 			}
 			
 		});
-		String[] posselecciones = { "TOURNEY","PROB TOURNEY","RULET", "STOCHASTIC", "RESTS" };
+		String[] posselecciones = { "TOURNAMENT","PROB TOURNAMENT","ROULETTE", "STOCHASTIC", "LEFTOVERS" };
 		JComboBox<String> seleccion = new JComboBox<String>(posselecciones);
 		seleccion.setMaximumSize(dimension);
 		seleccion.setEditable(false);
-		String[] poscruces = { "PMX", "OX", "OUR METHOD", "INDEX" };
-		JComboBox<String> cruce = new JComboBox<String>(poscruces);
-		cruce.setMaximumSize(dimension);
-		cruce.setEditable(false);
-		String[] posmutations = {"EXCHANGE", "HEURISTIC", "INSERTION", "INVERSION", "OUR METHOD", "INDEX"};
+		String[] posinic = { "FULL", "GROW", "RAMPED" };
+		JComboBox<String> inic = new JComboBox<String>(posinic);
+		inic.setMaximumSize(dimension);
+		inic.setEditable(false);
+		String[] posmutations = {"FUNCION SIMPLE", "ARBOL", "PERMUTACION"};
 		JComboBox<String> mutations = new JComboBox<String>(posmutations);
 		mutations.setMaximumSize(dimension);
 		mutations.setEditable(false);
@@ -68,10 +68,10 @@ public class Barras {
 		JLabel maxgen = new JLabel("Max.Gen.");
 		JLabel porccruce = new JLabel("Porc.Cruce");
 		JLabel porcmuta = new JLabel("Porc.Muta.");
-		JLabel titcruce = new JLabel("Tipo de cruce");
+		JLabel titcruce = new JLabel("Tipo de inicializacion");
 		JLabel titselect = new JLabel("Tipo de seleccion");
 		JLabel titmutac = new JLabel("Tipo de mutacion");
-		JLabel mutatenum = new JLabel("Num para muta.");
+		JLabel titprof = new JLabel("Maximo de profundidad inicial");
 		this.panel.add(maxpob);
 		this.panel.add(poblacion);
 		this.panel.add(maxgen);
@@ -83,12 +83,12 @@ public class Barras {
 		this.panel.add(elitismo);
 		this.panel.add(porcelit);
 		this.panel.add(titcruce);
-		this.panel.add(cruce);
+		this.panel.add(inic);
 		this.panel.add(titselect);
 		this.panel.add(seleccion);
 		this.panel.add(titmutac);
 		this.panel.add(mutations);
-		this.panel.add(mutatenum);
+		this.panel.add(titprof);
 		this.panel.add(num);
 		this.panel.setFloatable(false);
 		
@@ -102,20 +102,12 @@ public class Barras {
 			{
 				//LANZAR F1 
 				ctrl.execute(poblacion.getText(),generaciones.getText(), porcentajecruce.getText(),porcentajemutacion.getText(),elitismo.isSelected()
-						, porcelit.getText(), (String)cruce.getSelectedItem(), (String)seleccion.getSelectedItem(),(String)mutations.getSelectedItem(), num.getText(),
-						cyphertext.getText());
+						, porcelit.getText(), (String)inic.getSelectedItem(), (String)seleccion.getSelectedItem(),(String)mutations.getSelectedItem(), num.getText());
 			}
 
 		});
-		this.finalgen = new JTextField[26];
 		
 		this.toolBar.add(f1);
-		for(int i =0;i < 26;i++) {
-			finalgen[i] = new JTextField();
-			finalgen[i].setEditable(false);
-			finalgen[i].setPreferredSize(new Dimension(10,20));
-			this.toolBar.add(finalgen[i]);
-		}
 		
 		this.toolBar.setOrientation(SwingConstants.HORIZONTAL);
 		this.toolBar.setFloatable(false);

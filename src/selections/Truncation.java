@@ -15,13 +15,13 @@ public class Truncation extends Selections {
 			Chromosome max = copia.getChromosome(0);
 			int index = 0;
 				for (int k = 1; k < pob.getTam(); k++) {
-					if (max.getFitness() < copia.getChromosome(k).getFitness()) {
+					if (max.getFitness() > copia.getChromosome(k).getFitness()) {
 						max = new Chromosome(copia.getChromosome(k));
 						index = k;
 					}
 				}
 			aux.add(max);
-			copia.getChromosome(index).setFitness(Integer.MIN_VALUE);
+			copia.getChromosome(index).setFitness(Integer.MAX_VALUE);
 		}
 		for(int i = 0; i< tampob;i++){
 			aux.add(aux.getChromosome(i));

@@ -15,9 +15,11 @@ public class Full extends Iniciacion {
 			do {
 				aux.setFuncion(funciones[(int) Math.round(Math.random()*6)]);
 			}while(aux.esTerminal());
-			if(aux.esBiFuncion())
-				aux.añadirHijo(crear(length-1, aux, i));
-			aux.añadirHijo(crear(length-1, aux, i));
+			if(aux.esBiFuncion()) {
+				aux.anadirHijo(crear(length-1, padre, i));
+				i = aux.elUltimo();
+			}
+			aux.anadirHijo(crear(length-1, aux, i));
 		}
 		else
 			aux.setFuncion(Elemento.A);
@@ -30,10 +32,12 @@ public class Full extends Iniciacion {
 		do {
 			padre.setFuncion(funciones[(int) Math.round(Math.random()*6)]) ;
 		}while(padre.esTerminal());
-		int i = 1;
-		if(padre.esBiFuncion())
-			padre.añadirHijo(crear(treeLength-1, padre, i));
-		padre.añadirHijo(crear(treeLength-1, padre, i));
+		int i = 0;
+		if(padre.esBiFuncion()) {
+			padre.anadirHijo(crear(treeLength-1, padre, i));
+			i = padre.elUltimo();
+		}
+		padre.anadirHijo(crear(treeLength-1, padre, i));
 		return padre;
 	}
 

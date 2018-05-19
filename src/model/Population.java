@@ -9,6 +9,7 @@ public class Population {
 	private double theBest;
 	private int posBest;
 	private static String cleantext;
+	private double k = 0;
 	public Population(int tam, int length){
 		this.pobSize = tam;
 		this.individuals= Iniciacion.getInstance().execute(length,this.pobSize);
@@ -55,14 +56,39 @@ public class Population {
 			individuals[k].setPuntAcum(individuals[k].getPuntuation() + individuals[k - 1].getPuntAcum());
 		}
 	}
-	public void evaluar(String cleantext){
+	public void evaluar(){
 		double[] aux = new double[this.pobSize];
-		
+		double[] aux2 = new double [this.pobSize];
+		double sumfitness = 0;
+		int sumnumnodos = 0;
+		int sumnumnodos2 = 0;
 		for(int i = 0; i < this.pobSize; i++){
 			this.individuals[i].calculos();
 		}
-		for (int i = 0;i < this.pobSize;i++)
+		//Para hacer control de bloating
+		for (int i = 0;i < this.pobSize;i++) {
 			aux[i] = individuals[i].getFitness();
+			sumfitness+= aux[i];
+			aux2[i] = individuals[i].getNumNodos();
+			sumnumnodos += aux2[i];
+			sumnumnodos2 += Math.pow(aux2[i], 2);
+		}
+		double mulmedia = sumfitness / this.pobSize * sumnumnodos / this.pobSize;
+		double covarianza =0;
+		double varianza = sumnumnodos2 / (this.pobSize - 1) - (sumnumnodos * sumnumnodos) / (this.pobSize * (this.pobSize - 1));
+		for(int i = 0; i < this.pobSize;i++) {
+			covarianza +=aux[i]*aux2[i] -mulmedia;
+		}
+		covarianza = covarianza / this.pobSize;
+		this.k = covarianza / varianza;
+		for (int i = 0; i < this.pobSize;i++)
+		{
+			aux[i] = aux[i]+ this.k* aux2[i];
+		}
+		this.elMejor(aux);
+		double max = this.theBest*1.05;
+		for (int i = 0;i < this.pobSize;i++)
+			aux[i] = max-individuals[i].getFitness();
 		this.elMejor(aux);
 		this.FitnessSum(aux);
 		
@@ -102,14 +128,14 @@ public class Population {
 		// TODO Auto-generated method stub
 		return this.pobSize;
 	}
-	public int mutate(double porcmuta, int k) {
+	public int mutate(double porcmuta) {
 		// TODO Auto-generated method stub
 		double j;
 		int res =0;
 		for(int i =0;i<this.pobSize;i++) {
 			j=Math.random();
 			if(j<porcmuta) {
-				Mutation.getInstance().execute(this.individuals[i], k);
+				Mutation.getInstance().execute(this.individuals[i]);
 				res++;
 			}
 		}

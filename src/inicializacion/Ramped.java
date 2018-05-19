@@ -12,15 +12,15 @@ public class Ramped extends Iniciacion {
 		// TODO Auto-generated method stub
 		Chromosome[] aux = new Chromosome[pobSize];
 		int tamGroup = pobSize/treeLength;
-		for(int i = 0; i < treeLength-1; i++)
+		for(int i = 0; i <= treeLength-1; i++)
 		{
 			for(int j = 0; j < tamGroup/2; j++)
 			{
-				aux[(j*i)+j] = new Chromosome(treeLength-i, full(treeLength));
+				aux[(tamGroup*i)+j] = new Chromosome(treeLength, full(treeLength-i));
 			}
 			for(int j = tamGroup/2; j < tamGroup;j++)
 			{
-				aux[(j*i)+j] = new Chromosome(treeLength-i, grow(treeLength));
+				aux[(tamGroup*i)+j] = new Chromosome(treeLength, grow(treeLength-i));
 			}
 		}
 			
@@ -32,9 +32,11 @@ public class Ramped extends Iniciacion {
 		Nodo padre = new Nodo();
 		int i = 1;
 		if(!padre.esTerminal()){
-			if(padre.esBiFuncion())
-				padre.añadirHijo(grow(treeLength-1, padre, i));
-			padre.añadirHijo(grow(treeLength-1, padre, i));
+			if(padre.esBiFuncion()) {
+				padre.anadirHijo(grow(treeLength-1, padre, i));
+				i = padre.elUltimo();
+			}
+			padre.anadirHijo(grow(treeLength-1, padre, i));
 		}
 		return padre;
 	}
@@ -48,9 +50,11 @@ public class Ramped extends Iniciacion {
 		if(length > 0){
 			aux.setFuncion(funciones[(int) Math.round(Math.random()*6)]);
 			if(!aux.esTerminal()){
-				if(aux.esBiFuncion())
-					aux.añadirHijo(grow(length-1, aux, i));
-				aux.añadirHijo(grow(length-1, aux, i));
+				if(aux.esBiFuncion()) {
+					aux.anadirHijo(grow(length-1, padre, i));
+					i = aux.elUltimo();
+				}
+				aux.anadirHijo(grow(length-1, aux, i));
 			}
 		}
 		else
@@ -65,9 +69,11 @@ public class Ramped extends Iniciacion {
 			padre.setFuncion(funciones[(int) Math.round(Math.random()*6)]) ;
 		}while(padre.esTerminal());
 		int i = 1;
-		if(padre.esBiFuncion())
-			padre.añadirHijo(full(treeLength-1, padre, i));
-		padre.añadirHijo(full(treeLength-1, padre, i));
+		if(padre.esBiFuncion()) {
+			padre.anadirHijo(full(treeLength-1, padre, i));
+			i = padre.elUltimo();
+		}
+		padre.anadirHijo(full(treeLength-1, padre, i));
 		return padre;
 	}
 
@@ -81,9 +87,11 @@ public class Ramped extends Iniciacion {
 			do {
 				aux.setFuncion(funciones[(int) Math.round(Math.random()*6)]);
 			}while(aux.esTerminal());
-			if(aux.esBiFuncion())
-				aux.añadirHijo(full(length-1, aux, i));
-			aux.añadirHijo(full(length-1, aux, i));
+			if(aux.esBiFuncion()) {
+				aux.anadirHijo(full(length-1, padre, i));
+				i = aux.elUltimo();
+			}
+			aux.anadirHijo(full(length-1, aux, i));
 		}
 		else
 			aux.setFuncion(Elemento.A);

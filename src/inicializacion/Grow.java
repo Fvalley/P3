@@ -14,9 +14,11 @@ public class Grow extends Iniciacion {
 		if(length > 0){
 			aux.setFuncion(funciones[(int) Math.round(Math.random()*6)]);
 			if(!aux.esTerminal()){
-				if(aux.esBiFuncion())
-					aux.añadirHijo(crear(length-1, aux, i));
-				aux.añadirHijo(crear(length-1, aux, i));
+				if(aux.esBiFuncion()) {
+					aux.anadirHijo(crear(length-1, padre, i));
+					i = aux.elUltimo();
+				}
+				aux.anadirHijo(crear(length-1, aux, i));
 			}
 		}
 		else
@@ -29,9 +31,11 @@ public class Grow extends Iniciacion {
 		Nodo padre = new Nodo();
 		int i = 1;
 		if(!padre.esTerminal()){
-			if(padre.esBiFuncion())
-				padre.añadirHijo(crear(treeLength-1, padre, i));
-			padre.añadirHijo(crear(treeLength-1, padre, i));
+			if(padre.esBiFuncion()) {
+				padre.anadirHijo(crear(treeLength-1, padre, i));
+				i = padre.elUltimo();
+			}
+			padre.anadirHijo(crear(treeLength-1, padre, i));
 		}
 		return padre;
 	}

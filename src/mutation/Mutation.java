@@ -4,7 +4,7 @@ import model.Chromosome;
 
 public abstract class Mutation {
 	private static Mutation muta = null;
-	public abstract void execute(Chromosome chromosome, int k);
+	public abstract void execute(Chromosome chromosome);
 	public static void createInstance(String mutate) {
 		switch (mutate) {
 		case "FUNCION SIMPLE":

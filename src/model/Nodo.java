@@ -8,8 +8,7 @@ public class Nodo {
 	protected static Elemento[] funciones = Elemento.values();
 	private int profundidad;
 	private int indice = -1;
-	private int numNodos;
-	
+
 	public Nodo(int length, Nodo padre, int i){
 		this.padre = padre;
 		i++;
@@ -19,33 +18,31 @@ public class Nodo {
 			this.funcion = funciones[(int) Math.round(Math.random()*6)];
 			if(!this.esTerminal()){
 				if(this.esBiFuncion())
-					this.añadirHijo(new Nodo(length-1, this, i));
-				this.añadirHijo(new Nodo(length-1, this, i));
+					this.anadirHijo(new Nodo(length-1, this, i));
+				this.anadirHijo(new Nodo(length-1, this, i));
 			}
 		}
 		else
 			this.funcion = Elemento.A;
-		padre.numNodos = i;
 	}
 	public Nodo() {
 		this.profundidad = 0;
-		int i = 1;
-		this.indice = i;
+		this.indice = 0;
 		this.funcion = funciones[(int) Math.round(Math.random()*6)];
 	}
 	public Nodo(Nodo tree, Nodo padre) {
 		// TODO Auto-generated constructor stub
-		this.funcion = tree.getFuncion();
-		this.numNodos = tree.numNodos;
-		if(padre != null)
-			this.padre = padre;
-		this.profundidad = tree.profundidad;
-		this.hijoIzq = new Nodo(tree.getHijoIzq(),this);
-		this.hijoDer = new Nodo(tree.getHijoDer(), this);
-		
+		if(tree != null) {
+			this.funcion = tree.getFuncion();
+			if(padre != null)
+				this.padre = padre;
+			this.profundidad = tree.profundidad;
+			this.hijoIzq = new Nodo(tree.getHijoIzq(),this);
+			this.hijoDer = new Nodo(tree.getHijoDer(), this);
+		}
 	}
-	
-	
+
+
 	public boolean esRaiz(){
 		return (this.padre == null) ? true : false;
 	}
@@ -62,15 +59,16 @@ public class Nodo {
 	public boolean tieneHijo(){
 		return (hijoIzq!= null) ? true : false;
 	}
-	public void añadirHijo(Nodo hijo)
+	public int anadirHijo(Nodo hijo)
 	{
 		if(this.hijoIzq == null)
 			this.hijoIzq = hijo;
 		else if(this.hijoDer == null)
 			this.hijoDer = hijo;
+		return hijo.indice;
 	}
-	
-	
+
+
 	public Nodo getHijoDer() {
 		// TODO Auto-generated method stub
 		return this.hijoDer;
@@ -147,10 +145,6 @@ public class Nodo {
 		// TODO Auto-generated method stub
 		this.profundidad=i;
 	}
-	public double getNumNodos() {
-		// TODO Auto-generated method stub
-		return this.numNodos;
-	}
 	public String getText() {
 		// TODO Auto-generated method stub
 		String aux = "";
@@ -178,5 +172,70 @@ public class Nodo {
 			break;
 		}
 		return aux;
+	}
+	public double getCalc(double valor) {
+		double aux=0;
+		switch(this.funcion) {
+		case Suma:
+			aux = this.hijoIzq.getCalc(valor) + this.hijoDer.getCalc(valor);
+			break;
+		case Resta:
+			aux = this.hijoIzq.getCalc(valor) - this.hijoDer.getCalc(valor);
+			break;
+		case Multiplicacion:
+			aux = this.hijoIzq.getCalc(valor) * this.hijoDer.getCalc(valor);
+			break;
+		case Division:
+			if(this.hijoDer.getCalc(valor)!= 0)
+				aux = this.hijoIzq.getCalc(valor) / this.hijoDer.getCalc(valor);
+			else
+				aux =Integer.MAX_VALUE;
+			break;
+		case LOG:
+			if(this.hijoIzq.getCalc(valor)!= 0)
+				aux = Math.log(this.hijoIzq.getCalc(valor));
+			else
+				aux = Integer.MAX_VALUE;
+			break;
+		case SQRT:
+			aux = Math.sqrt(this.hijoIzq.getCalc(valor));
+			break;
+		case A:
+			aux = valor;
+			break;
+		}
+		return aux;
+	}
+	public double getMaxProfundidad() {
+		// TODO Auto-generated method stub
+		if(this.esTerminal()) {
+			return this.profundidad;
+		}
+		else
+		{
+			if(this.esBiFuncion()) {
+				double aux1 = this.hijoIzq.getMaxProfundidad();
+				double aux2 = this.hijoDer.getMaxProfundidad();
+				return (aux1 > aux2) ? aux1 : aux2;
+			}
+			else {
+				return this.hijoIzq.getMaxProfundidad();
+			}
+		}
+	}
+	public int elUltimo() {
+		// TODO Auto-generated method stub
+		if(this.hijoDer!=null)
+		{
+			return this.hijoDer.elUltimo();
+		}
+		else if(!this.esTerminal())
+		{
+			return this.hijoIzq.elUltimo();
+		}
+		else
+		{
+			return this.indice;
+		}
 	}
 }

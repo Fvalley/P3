@@ -13,17 +13,18 @@ public class Tourney extends Selections {
 		int o = 0;
 		Population aux = new Population(), aux2 = new  Population();
 		for(int i = 0; i < tampob; i++){
-			a = Math.random();
 			for(int j = 0; j < k; j++){			
 				a = Math.random();
 				o = 0;
 				while(!found && o < pob.getTam()) {
 					if(o == 0 && a <= pob.getChromosome(o).getPuntAcum()){
 						aux.add(pob.getChromosome(o));
+						//System.out.println("se ha añadido el numero"+o +" fitnes "+ pob.getChromosome(o).getFitness() + " punt acum " + pob.getChromosome(o).getPuntAcum());
 						found = true;
 					}
 					else if(a <= pob.getChromosome(o).getPuntAcum() && a > pob.getChromosome(o-1).getPuntAcum()){
 						aux.add(pob.getChromosome(o));
+						//System.out.println("se ha añadido el numero"+o +" fitnes "+ pob.getChromosome(o).getFitness() + " punt acum " + pob.getChromosome(o).getPuntAcum());
 						found = true;
 					}
 					o++;
@@ -31,10 +32,13 @@ public class Tourney extends Selections {
 				found = false;
 			}
 			double[] copia = new double[aux.getTam()];
+			for(int p = 0; p < aux.getTam(); p++)
+				copia[p] = aux.getChromosome(p).getFitness();
+			aux.elMejor(copia);
+			double max = aux.getTheBest() *1.05;
 			for(int k1= 0; k1 <aux.getTam();k1++) {
-				copia[k1] = aux.getChromosome(k1).getFitness();
+				copia[k1] = max-aux.getChromosome(k1).getFitness();
 			}
-			
 			aux.elMejor(copia);
 			aux2.add(aux.getChromosome(aux.getPosBest()));
 			aux.clear();

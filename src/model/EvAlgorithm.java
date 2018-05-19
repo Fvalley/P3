@@ -1,6 +1,6 @@
 package model;
 
-import crosses.Crosses;
+import practice3.Crosses;
 import selections.Selections;
 import view.Grafics;
 
@@ -15,16 +15,10 @@ public class EvAlgorithm {
 	private double porcmuta;
 	private boolean elit;
 	private double porcelit;
-	private int inser;
 	private Chromosome solution;
-	private String text;
-	private String cleantext="";//Text without punctuations and spaces
-	private int numbcross=0;
-	private int numbmuta=0;
 	private int length;
-	private static String punctuations= ".,;:?!-_/'";
 
-	public EvAlgorithm(int tampob2, int generaciones2, double porccruce2, double porcmuta2, boolean elitsm, double porcelit2, int inser2, String text) {
+	public EvAlgorithm(int tampob2, int generaciones2, double porccruce2, double porcmuta2, boolean elitsm, double porcelit2, int length2) {
 		// TODO Auto-generated method stub
 		this.tampob = tampob2;
 		this.generaciones = generaciones2;
@@ -32,24 +26,12 @@ public class EvAlgorithm {
 		this.porcmuta =porcmuta2;
 		this.elit = elitsm;
 		this.porcelit = porcelit2;
+		this.length = length2;
 		this.pob = new Population(this.tampob, this.length);
 
-		this.inser = inser2;
-		this.text = text.toUpperCase();
-		String[] words= text.split(" ");
-		String[] letters;
-		for(String word:words) {
-			letters=word.split("");
-			for(String letter:letters) {
-				if(!punctuations.contains(letter) && !letter.equals(Character.toString((char) 34))) {
-					this.cleantext+=letter;
-				}
-			}
-		}
-		Population.setText(this.cleantext);
 	}
 	public void start(){
-		this.pob.evaluar(this.cleantext);
+		this.pob.evaluar();
 		this.elMejorDeTodos = new double[this.generaciones];
 		this.losMejores = new double[this.generaciones];
 		this.media = new double[this.generaciones];
@@ -79,13 +61,13 @@ public class EvAlgorithm {
 					Chromosome max = new Chromosome(copia.getChromosome(0));
 					index =0;
 					for (int k1 = 1; k1 < this.tampob; k1++) {
-						if (max.getFitness() < copia.getChromosome(k1).getFitness()) {
+						if (max.getFitness() > copia.getChromosome(k1).getFitness()) {
 							max = new Chromosome(copia.getChromosome(k1));
 							index = k1;
 						}
 					}
 					aux.add(max);
-					copia.getChromosome(index).setFitness(Integer.MIN_VALUE);
+					copia.getChromosome(index).setFitness(Integer.MAX_VALUE);
 				}
 				this.pob = Selections.getInstance().select(this.pob,this.tampob-(tamelit*2));
 			}
@@ -95,16 +77,16 @@ public class EvAlgorithm {
 				this.pob.add(aux.getChromosome(k));
 				k++;
 			}
-
-			numbcross+= Crosses.getInstance().cross(this.pob, this.porccruce);
-			numbmuta += this.pob.mutate(this.porcmuta, this.inser);
+			System.out.println("He llegado al cruce");
+			Crosses.getInstance().cross(this.pob, this.porccruce, porccruce);
+			this.pob.mutate(this.porcmuta);
 			k = 0;
 			while(k < tamelit) {
 				this.pob.add(aux.getChromosome(k));
 				k++;
 			}
 			//Para medir
-			this.pob.evaluar(this.cleantext);
+			this.pob.evaluar();
 			this.media[i] = this.media(this.pob);
 			this.losMejores[i]=this.pob.getTheBest();
 			if(pob.getTheBest() > this.elMejorDeTodos[i-1]){
@@ -114,9 +96,8 @@ public class EvAlgorithm {
 			}
 			else
 				this.elMejorDeTodos[i] = this.elMejorDeTodos[i-1];
+			System.out.println(this.solution.getSolution());
 		}
-		System.out.println("Numero  de cruces:" + numbcross);
-		System.out.println("Numero de mutaciones"+numbmuta);
 	}
 	private double media(Population pob2) {
 		double aux=0;

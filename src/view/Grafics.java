@@ -28,30 +28,24 @@ public class Grafics {
 		//plot.addLegend("CENTER");
 		Dimension dim = new Dimension(400, 400);
 		Dimension dim2 = new Dimension(700, 700);
-		JTextArea cyphertext = new JTextArea("");
-		cyphertext.setPreferredSize(dim);
-		cyphertext.setLineWrap(true);
-		cyphertext.setWrapStyleWord(true);
+		
 		decodedtext = new JTextArea("Here is shown the decoded text from above");
 		decodedtext.setPreferredSize(dim);
 		decodedtext.setEditable(false);
 		decodedtext.setLineWrap(true);
 		decodedtext.setWrapStyleWord(true);
-		
+	
 		JScrollPane scroll = new JScrollPane(); 
-		scroll.setViewportView(cyphertext);
-		JScrollPane scroll2 = new JScrollPane(); 
-		scroll2.setViewportView(decodedtext);
+		scroll.setViewportView(decodedtext);
 		
 		
 		JPanel texts = new JPanel();
 		texts.setLayout(new BoxLayout(texts, BoxLayout.Y_AXIS));
 		texts.setSize(dim2);
-		this.barra = new Barras(this.ctrl, cyphertext);
+		this.barra = new Barras(this.ctrl);
 		//texts.add(barra.getPanel(), BorderLayout.WEST);
 		
 		texts.add(scroll, BorderLayout.NORTH);
-		texts.add(scroll2, BorderLayout.NORTH);
 		//texts.add(barra.getToolBar(), BorderLayout.SOUTH);
 		
 		Grafics.window = new JFrame("Gráfica");

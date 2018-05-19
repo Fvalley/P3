@@ -8,19 +8,19 @@ public abstract class Selections {
 	
 	public static void createInstance(String select) {
 		switch (select) {
-		case "RULET":
+		case "ROULETTE":
 			selection = new RuletSelection();
 			break;
 		case "STOCHASTIC":
 			selection = new Stochastic();
 			break;
-		case "TOURNEY":
+		case "TOURNAMENT":
 			selection = new Tourney();
 			break;
-		case "PROB TOURNEY":
+		case "PROB TOURNAMENT":
 			selection = new Tourney();
 			break;
-		case "RESTS":
+		case "LEFTOVERS":
 			selection= new Rests();
 		default:
 			selection = new RuletSelection();

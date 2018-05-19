@@ -44,7 +44,7 @@ public class ProbTourney extends Selections {
 				prob = false;
 			}
 			aux.elMejor(copia);
-			if(!prob) {
+			if(prob) {
 				double max = aux.getTheBest() *1.05;
 				for(int k1= 0; k1 <aux.getTam();k1++) {
 					copia[k1] = max-aux.getChromosome(k1).getFitness();
