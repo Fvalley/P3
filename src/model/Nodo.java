@@ -34,11 +34,16 @@ public class Nodo {
 		// TODO Auto-generated constructor stub
 		if(tree != null) {
 			this.funcion = tree.getFuncion();
-			if(padre != null)
-				this.padre = padre;
+			
+			this.indice = tree.indice;
 			this.profundidad = tree.profundidad;
-			this.hijoIzq = new Nodo(tree.getHijoIzq(),this);
-			this.hijoDer = new Nodo(tree.getHijoDer(), this);
+			if(padre != null) {
+				this.padre = padre;
+			}
+			if(tree.hijoIzq!= null)
+				this.hijoIzq = new Nodo(tree.getHijoIzq(),this);
+			if(tree.hijoDer != null)
+				this.hijoDer = new Nodo(tree.getHijoDer(), this);
 		}
 	}
 
@@ -87,11 +92,12 @@ public class Nodo {
 	}
 	public Nodo getNodo(int i) {
 		// TODO Auto-generated method stub
+		System.out.println("soy " + this.funcion);
 		if(this.indice == i)
 			return this;
 		else
 		{
-			if(this.getHijoDer().indice > i)
+			if(this.getHijoDer() == null || this.getHijoDer().indice > i)
 				return this.hijoIzq.getNodo(i);
 			else
 				return this.hijoDer.getNodo(i);
@@ -102,12 +108,14 @@ public class Nodo {
 		if(this.indice == k){
 			this.funcion = gen.getFuncion();
 			this.profundidad = gen.profundidad;
-			this.hijoIzq = new Nodo(gen.getHijoIzq(),this);
-			this.hijoDer = new Nodo(gen.getHijoDer(),this);
+			if(gen.hijoIzq != null)
+				this.hijoIzq = new Nodo(gen.getHijoIzq(),this);
+			if(gen.hijoDer != null)
+				this.hijoDer = new Nodo(gen.getHijoDer(),this);
 		}
 		else
 		{
-			if(this.getHijoDer().indice > k)
+			if(this.getHijoDer() == null || this.getHijoDer().indice > k)
 				this.hijoIzq.setNodo(k, gen);
 			else
 				this.hijoDer.setNodo(k,gen);

@@ -8,7 +8,7 @@ public class Arbol extends Mutation {
 	@Override
 	public void execute(Chromosome chromosome) {
 		// TODO Auto-generated method stub
-		int k = (int) Math.round(Math.random()*chromosome.getNumNodos());
+		int k = (int) Math.round(Math.random()*(chromosome.getNumNodos()-1));
 		Nodo aux = chromosome.getNode(k);
 		Nodo aux2 = new Nodo(aux.getProfundidad(),aux.getPadre(),aux.getIndex()-1);
 		chromosome.setNode(k, aux2);

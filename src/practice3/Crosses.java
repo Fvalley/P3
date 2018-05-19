@@ -13,7 +13,7 @@ public class Crosses {
 		double porc1, porc2;
 		while(!found1)
 		{
-			index1 = (int) Math.round(Math.random()*chrom1.getNumNodos());
+			index1 = (int) Math.round(Math.random()*(chrom1.getNumNodos()-1));
 			porc1 = Math.random();
 			if(chrom1.getNode(index1).esTerminal()){
 				if(porc1 < 1-porcfuncion)
@@ -26,7 +26,7 @@ public class Crosses {
 		}
 		while(!found2)
 		{
-			index2 = (int) Math.round(Math.random()*chrom2.getNumNodos());
+			index2 = (int) Math.round(Math.random()*(chrom2.getNumNodos()-1));
 			porc2 = Math.random();
 			if(chrom2.getNode(index2).esTerminal()){
 				if(porc2 < 1-porcfuncion)

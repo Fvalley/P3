@@ -8,7 +8,7 @@ public class Permutacion extends Mutation {
 	@Override
 	public void execute(Chromosome chromosome) {
 		// TODO Auto-generated method stub
-		int k = (int) Math.round(Math.random()*chromosome.getNumNodos());
+		int k = (int) Math.round(Math.random()*(chromosome.getNumNodos()-1));
 		Nodo aux = chromosome.getNode(k);
 		if(aux.esBiFuncion())
 		{
