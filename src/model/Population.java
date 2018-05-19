@@ -48,7 +48,7 @@ public class Population {
 			sum += aux[i];
 		}
 		for(int j = 0 ; j < this.pobSize;j++){
-			individuals[j].setPuntuation(aux[j]/sum);
+			individuals[j].setPuntuation(Math.abs(aux[j]/sum));
 		}
 		individuals[0].setPuntAcum(individuals[0].getPuntuation());
 		for(int k = 1; k < this.pobSize;k++){
@@ -65,6 +65,7 @@ public class Population {
 		for(int i = 0; i < this.pobSize; i++){
 			this.individuals[i].calculos();
 		}
+		
 		//Para hacer control de bloating
 		for (int i = 0;i < this.pobSize;i++) {
 			aux[i] = individuals[i].getFitness();
@@ -73,18 +74,25 @@ public class Population {
 			sumnumnodos += aux2[i];
 			sumnumnodos2 += Math.pow(aux2[i], 2);
 		}
-		double mulmedia = sumfitness / this.pobSize * sumnumnodos / this.pobSize;
+		double medianum =sumnumnodos / this.pobSize;
+		double mulmedia = sumfitness / this.pobSize * medianum;
 		double covarianza =0;
-		double varianza = sumnumnodos2 / (this.pobSize - 1) - (sumnumnodos * sumnumnodos) / (this.pobSize * (this.pobSize - 1));
+		double varianza = 0;
+		for(int i =0; i < this.pobSize;i++) {
+			varianza+=Math.pow(aux2[i]-medianum, 2);
+		}
+		varianza /= this.pobSize;
 		for(int i = 0; i < this.pobSize;i++) {
 			covarianza +=aux[i]*aux2[i] -mulmedia;
 		}
 		covarianza = covarianza / this.pobSize;
 		this.k = covarianza / varianza;
+		System.out.println(k);
 		for (int i = 0; i < this.pobSize;i++)
 		{
 			aux[i] = aux[i]+ this.k* aux2[i];
 		}
+		
 		this.elMejor(aux);
 		double max = this.theBest*1.05;
 		for (int i = 0;i < this.pobSize;i++)

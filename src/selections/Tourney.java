@@ -13,7 +13,10 @@ public class Tourney extends Selections {
 		int o = 0;
 		Population aux = new Population(), aux2 = new  Population();
 		for(int i = 0; i < tampob; i++){
-			for(int j = 0; j < k; j++){			
+			System.out.println(pob.getChromosome(i).getSolution()+" "+ pob.getChromosome(i).getPuntAcum());
+		}
+		for(int i = 0; i < tampob; i++){
+			while(aux.getTam() < k){			
 				a = Math.random();
 				o = 0;
 				while(!found && o < pob.getTam()) {

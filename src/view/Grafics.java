@@ -69,11 +69,11 @@ public class Grafics {
 		}
 		aux= aux/media.length;
 		System.out.println(aux);
-		barra.showfenotipe(geno);
 		window.repaint();
 	}
-	public static void usage() {
+	
+	public static void add(String solution) {
 		// TODO Auto-generated method stub
-		decodedtext.setText("WARNING, not working unless you put some encrypted text above");
+		decodedtext.setText(solution);
 	}
 }

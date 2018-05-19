@@ -40,7 +40,6 @@ public class Crosses {
 		Nodo aux = chrom1.getNode(index1);
 		chrom1.setNode(index1, chrom2.getNode(index2));
 		chrom2.setNode(index2, aux);
-		
 	}
 	public int cross(Population pob, double porccruce, double porcfuncion) {
 		// TODO Auto-generated method stub

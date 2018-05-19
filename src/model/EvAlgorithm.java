@@ -69,6 +69,7 @@ public class EvAlgorithm {
 					aux.add(max);
 					copia.getChromosome(index).setFitness(Integer.MAX_VALUE);
 				}
+				System.out.println("Llegue a seleccion");
 				this.pob = Selections.getInstance().select(this.pob,this.tampob-(tamelit*2));
 			}
 
@@ -96,7 +97,8 @@ public class EvAlgorithm {
 			}
 			else
 				this.elMejorDeTodos[i] = this.elMejorDeTodos[i-1];
-			System.out.println(this.solution.getSolution());
+			System.out.println("Llegue al final");
+			Grafics.add(this.solution.getSolution());
 		}
 	}
 	private double media(Population pob2) {

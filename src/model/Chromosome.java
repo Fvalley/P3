@@ -40,7 +40,7 @@ public class Chromosome {
 			aux+= Math.abs(this.tree.getCalc(datos[i])-resultados[i]);
 		}
 		if(aux != aux)//Si resulta NaN
-			this.fitness = Integer.MAX_VALUE;
+			this.fitness = 10000000;
 		else
 			this.fitness = aux;
 	}
@@ -70,6 +70,7 @@ public class Chromosome {
 	}
 
 	public Nodo getNode(int i) {
+		System.out.println("Buscamos " + i);
 		return this.tree.getNodo(i);
 	}
 	public void setFitness(double minValue) {

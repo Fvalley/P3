@@ -17,8 +17,10 @@ public class Nodo {
 		if(length > 0){
 			this.funcion = funciones[(int) Math.round(Math.random()*6)];
 			if(!this.esTerminal()){
-				if(this.esBiFuncion())
+				if(this.esBiFuncion()) {
 					this.anadirHijo(new Nodo(length-1, this, i));
+					i =this.elUltimo();
+				}
 				this.anadirHijo(new Nodo(length-1, this, i));
 			}
 		}
@@ -48,6 +50,21 @@ public class Nodo {
 	}
 
 
+	public Nodo(Nodo tree, Nodo padre, int k) {
+		// TODO Auto-generated constructor stub
+		int j = k;
+		this.funcion = tree.getFuncion();
+		this.profundidad = tree.profundidad;
+		++k;
+		this.indice=k;
+		if(tree.hijoIzq != null) {
+			this.hijoIzq = new Nodo(tree.getHijoIzq(),this, k);
+			j = this.elUltimo();
+		}
+		if(tree.hijoDer != null)
+			this.hijoDer = new Nodo(tree.getHijoDer(),this, j);
+	}
+	
 	public boolean esRaiz(){
 		return (this.padre == null) ? true : false;
 	}
@@ -92,13 +109,16 @@ public class Nodo {
 	}
 	public Nodo getNodo(int i) {
 		// TODO Auto-generated method stub
-		System.out.println("soy " + this.funcion);
+		System.out.println("soy " + this.funcion + " indice " + this.indice);
 		if(this.indice == i)
 			return this;
 		else
 		{
-			if(this.getHijoDer() == null || this.getHijoDer().indice > i)
+			if(this.getHijoDer() == null || this.getHijoDer().indice > i) {
+				if(this.getHijoDer() != null)System.out.println("indice del hermano derecho "+ this.getHijoDer().indice);
 				return this.hijoIzq.getNodo(i);
+				
+			}
 			else
 				return this.hijoDer.getNodo(i);
 		}
@@ -109,9 +129,10 @@ public class Nodo {
 			this.funcion = gen.getFuncion();
 			this.profundidad = gen.profundidad;
 			if(gen.hijoIzq != null)
-				this.hijoIzq = new Nodo(gen.getHijoIzq(),this);
+				this.hijoIzq = new Nodo(gen.getHijoIzq(),this, k);
+			int j =this.elUltimo();
 			if(gen.hijoDer != null)
-				this.hijoDer = new Nodo(gen.getHijoDer(),this);
+				this.hijoDer = new Nodo(gen.getHijoDer(),this, j);
 		}
 		else
 		{
@@ -197,13 +218,13 @@ public class Nodo {
 			if(this.hijoDer.getCalc(valor)!= 0)
 				aux = this.hijoIzq.getCalc(valor) / this.hijoDer.getCalc(valor);
 			else
-				aux =Integer.MAX_VALUE;
+				aux =1000000;
 			break;
 		case LOG:
 			if(this.hijoIzq.getCalc(valor)!= 0)
 				aux = Math.log(this.hijoIzq.getCalc(valor));
 			else
-				aux = Integer.MAX_VALUE;
+				aux = 1000000;
 			break;
 		case SQRT:
 			aux = Math.sqrt(this.hijoIzq.getCalc(valor));
